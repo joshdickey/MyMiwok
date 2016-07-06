@@ -6,17 +6,18 @@ public class Word extends AppCompatActivity {
 
     private String mDefaultTranslation;
     private String mMiwokTranslation;
-    private String mIcon;
+    private int mResourceID;
 
     public Word(String defaultTranslation, String miwokTranslation){
         mDefaultTranslation = defaultTranslation;
         mMiwokTranslation = miwokTranslation;
+
     }
 
-    public Word(String defaultTranslation, String miwokTranslation, String icon){
+    public Word(String defaultTranslation, String miwokTranslation, int resourceID){
         mDefaultTranslation = defaultTranslation;
         mMiwokTranslation = miwokTranslation;
-        mIcon = icon;
+        mResourceID = resourceID;
     }
     public String getmDefaultTranslation(){
         return mDefaultTranslation;
@@ -26,5 +27,5 @@ public class Word extends AppCompatActivity {
         return mMiwokTranslation;
     }
 
-    public String getmIcon(){ return mIcon;}
+    public int getResourceID(){ return mResourceID;}
 }
