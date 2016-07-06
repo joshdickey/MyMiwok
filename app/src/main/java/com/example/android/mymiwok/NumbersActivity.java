@@ -21,39 +21,25 @@ public class NumbersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numbers);
 
-        ArrayList<String> words = new ArrayList<>();
+        ArrayList<Word> words = new ArrayList<>();
 
-        words.add("One");
-        words.add("Two");
-        words.add("Three");
-        words.add("Four");
-        words.add("Five");
-        words.add("Six");
-        words.add("Seven");
-        words.add("Eight");
-        words.add("Nine");
-        words.add("Ten");
+        //words.add("One");
 
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, words);
+        words.add(new Word("One", "Lutti"));
+
+        words.add(new Word("Two", "otiiko"));
+        words.add(new Word("Three", "tolookosu"));
+        words.add(new Word("Four", "oyyisa"));
+        words.add(new Word("Five", "massokka"));
+        words.add(new Word("Six", "temmokka"));
+        words.add(new Word("Seven", "kenekaku"));
+        words.add(new Word("Eight", "kawinta"));
+        words.add(new Word("Nine", "wo'e"));
+        words.add(new Word("Ten", "na'aacha"));
+
+        WordAdapter itemsAdapter = new WordAdapter(this, words);
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
-
-       /* LinearLayout rootView = (LinearLayout) findViewById(R.id.rootView);
-        int count = 0;*/
-
-        /*while (count < words.size()){
-
-
-            TextView wordView = new TextView(this);
-            wordView.setText(words.get(count));
-            rootView.addView(wordView);
-
-            count++;
-        }*/
-
-
-
-
 
 
     }
