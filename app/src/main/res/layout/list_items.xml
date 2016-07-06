@@ -17,5 +17,5 @@
         android:layout_height="wrap_content"
         android:text="One"
         android:id="@+id/defauld_text_view"
-        android:paddingLeft="16dp"/>
+        android:paddingLeft="16dp" />
 </LinearLayout>
