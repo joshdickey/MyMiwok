@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-// Find the View that shows the numbers category
+// Find the View that shows the correct category
         TextView numbers = (TextView) findViewById(R.id.numbers);
         TextView family = (TextView) findViewById(R.id.family);
         TextView colors = (TextView) findViewById(R.id.colors);
