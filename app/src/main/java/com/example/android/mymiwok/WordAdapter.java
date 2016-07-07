@@ -1,6 +1,7 @@
 package com.example.android.mymiwok;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,8 @@ public class WordAdapter extends ArrayAdapter<Word>{
                     R.layout.list_items, parent, false);
         }
 
-        Word currentWord = getItem(position);
+
+        final Word currentWord = getItem(position);
 
         TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
         miwokTextView.setText(currentWord.getmMiwokTranslation());
