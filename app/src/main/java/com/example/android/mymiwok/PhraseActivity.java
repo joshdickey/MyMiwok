@@ -46,8 +46,9 @@ public class PhraseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
 
-        final ArrayList<Word> words = new ArrayList<>();
+        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
+        final ArrayList<Word> words = new ArrayList<>();
 
 
         words.add(new Word("Where are you going?", "minto wuksus", R.raw.phrase_where_are_you_going));

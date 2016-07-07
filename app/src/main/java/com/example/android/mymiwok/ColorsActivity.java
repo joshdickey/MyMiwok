@@ -46,6 +46,8 @@ public class ColorsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
 
+        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+
         final ArrayList<Word> words = new ArrayList<>();
 
         words.add(new Word("red", "weṭeṭṭi", R.drawable.color_red, R.raw.color_red));
