@@ -1,5 +1,6 @@
 package com.example.android.mymiwok;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,26 @@ import java.util.ArrayList;
 public class PhraseActivity extends AppCompatActivity {
 
     MediaPlayer mediaPlayer;
+
+    private AudioManager mAudioManager;
+
+    AudioManager.OnAudioFocusChangeListener afChangeListener =
+            new AudioManager.OnAudioFocusChangeListener() {
+                public void onAudioFocusChange(int focusChange) {
+                    if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
+                            focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+                        // Pause playback
+                        mediaPlayer.pause();
+                        mediaPlayer.seekTo(0);
+                    } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                        // Resume playback
+                        mediaPlayer.start();
+                    } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                        // Stop playback
+                        releaseMediaPlayer();
+                    }
+                }
+            };
 
     private MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -48,10 +69,22 @@ public class PhraseActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 releaseMediaPlayer();
-                mediaPlayer = MediaPlayer.create(PhraseActivity.this, words.get(i).getmAudioResID());
-                mediaPlayer.start();
+                // Request audio focus for playback
+                int result = mAudioManager.requestAudioFocus(afChangeListener,
+                        // Use the music stream.
+                        AudioManager.STREAM_MUSIC,
+                        // Request permanent focus.
+                        AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
-                mediaPlayer.setOnCompletionListener(onCompletionListener);
+                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    // Start playback.
+
+                    mediaPlayer = MediaPlayer.create(PhraseActivity.this, words.get(i).getmAudioResID());
+                    mediaPlayer.start();
+
+                    //uses the oncomplete listener once the auido file is done.
+                    mediaPlayer.setOnCompletionListener(onCompletionListener);
+                }
             }
         });
     }
@@ -70,6 +103,15 @@ public class PhraseActivity extends AppCompatActivity {
             // setting the media player to null is an easy way to tell that the media player
             // is not configured to play an audio file at the moment.
             mediaPlayer = null;
+
+            //Abandon audio focus
+            mAudioManager.abandonAudioFocus(afChangeListener);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
     }
 }
